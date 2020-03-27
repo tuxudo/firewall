@@ -9,16 +9,16 @@ class Firewall_model extends \Model {
 		parent::__construct('id', 'firewall'); // Primary key, tablename
 		$this->rs['id'] = '';
 		$this->rs['serial_number'] = $serial;
-		$this->rs['allowdownloadsignedenabled'] = ''; // True/False
-		$this->rs['allowsignedenabled'] = ''; // True/False
-		$this->rs['applications'] = '';
-		$this->rs['firewallunload'] = ''; // True/False
-		$this->rs['globalstate'] = '';
-		$this->rs['loggingenabled'] = ''; // True/False
-		$this->rs['loggingoption'] = '';
-		$this->rs['services'] = '';
-		$this->rs['stealthenabled'] = ''; // True/False
-		$this->rs['version'] = '';
+		$this->rs['allowdownloadsignedenabled'] = null; // True/False
+		$this->rs['allowsignedenabled'] = null; // True/False
+		$this->rs['applications'] = null;
+		$this->rs['firewallunload'] = null; // True/False
+		$this->rs['globalstate'] = null;
+		$this->rs['loggingenabled'] = null; // True/False
+		$this->rs['loggingoption'] = null;
+		$this->rs['services'] = null;
+		$this->rs['stealthenabled'] = null; // True/False
+		$this->rs['version'] = null;
 		
 		if ($serial) {
 			$this->retrieve_record($serial);
@@ -47,16 +47,16 @@ class Firewall_model extends \Model {
             $myList = $parser->toArray();
 
             $typeList = array(
-                'allowdownloadsignedenabled' => '',
-                'allowsignedenabled' => '',
-                'applications' => '',
-                'firewallunload' => '',
-                'globalstate' => '',
-                'loggingenabled' => '',
-                'loggingoption' => '',
-                'services' => '',
-                'stealthenabled' => '',
-                'version' => ''
+                'allowdownloadsignedenabled' => null,
+                'allowsignedenabled' => null,
+                'applications' => null,
+                'firewallunload' => null,
+                'globalstate' => null,
+                'loggingenabled' => null,
+                'loggingoption' => null,
+                'services' => null,
+                'stealthenabled' => null,
+                'version' => null
             );
 
             // Process each key
