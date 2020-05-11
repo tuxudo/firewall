@@ -1,0 +1,11 @@
+client_tabs:
+    firewall-tab: { view': 'firewall_tab', i18n: 'firewall.firewall', badge: 'firewall-cnt' }
+listings:
+    firewall: { view: 'firewall_listing', i18n: 'firewall.firewall' }
+widgets:
+    firewall_global_state: { view: 'firewall_global_state_widget' }
+    firewall_allowsignedenabled: { view: 'firewall_allowsignedenabled_widget' }
+    firewall_stealthenabled: { view: 'firewall_stealthenabled_widget' }
+    firewall_allowdownloadsignedenabled: { view: 'firewall_allowdownloadsignedenabled_widget' }
+reports:
+    firewall_report: { view: 'firewall_report', i18n: 'firewall.reporttitle' }
