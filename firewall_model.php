@@ -20,4 +20,6 @@ class Firewall_model extends Eloquent
 		'stealthenabled',
 		'version',
 		];		
+
+	public $timestamps = false;
 }
