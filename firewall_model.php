@@ -19,6 +19,5 @@ class Firewall_model extends Eloquent
 		'services',
 		'stealthenabled',
 		'version',
-		];
-		
+		];		
 }
