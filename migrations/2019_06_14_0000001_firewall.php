@@ -1,5 +1,5 @@
 <?php
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Firewall;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
