@@ -1,5 +1,5 @@
 client_tabs:
-    firewall-tab: { view': 'firewall_tab', i18n: 'firewall.firewall', badge: 'firewall-cnt' }
+    firewall-tab: { view: 'firewall_tab', i18n: 'firewall.firewall', badge: 'firewall-cnt' }
 listings:
     firewall: { view: 'firewall_listing', i18n: 'firewall.firewall' }
 widgets:
