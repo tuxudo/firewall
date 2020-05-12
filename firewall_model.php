@@ -1,6 +1,5 @@
 <?php
 
-use CFPropertyList\CFPropertyList;
 use munkireport\models\MRModel as Eloquent;
 
 class Firewall_model extends Eloquent
