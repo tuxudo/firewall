@@ -12,9 +12,6 @@ class Firewall_processor extends Processor
                 throw new Exception("Error Processing Request: No property list found", 1);
         }
 
-        // Delete previous set
-        Firewall_model::where('serial_number', $this->serial_number)->delete();
-
         $parser = new CFPropertyList();
         $parser->parse($plist, CFPropertyList::FORMAT_XML);
         $mylist = $parser->toArray();
