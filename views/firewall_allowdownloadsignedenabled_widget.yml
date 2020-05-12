@@ -1,0 +1,13 @@
+type: button
+widget_id: firewall_allowdownloadsignedenabled-widget
+api_url: /module/firewall/get_allowdownloadsignedenabled
+i18n_title: firewall.allowdownloadsignedenabled
+icon: fa-certificate
+listing_link: /show/listing/firewall/firewall
+buttons:
+  - label: off
+    i18n_label: no
+    class: btn-danger 
+  - label: on
+    i18n_label: yes
+    class: btn-success

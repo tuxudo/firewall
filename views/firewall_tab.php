@@ -8,7 +8,7 @@ $(document).on('appReady', function(){
     // Set the tab badge to blank
     $('#firewall-cnt').html("");
     
-	$.getJSON(appUrl + '/module/firewall/get_data/' + serialNumber, function(data){
+	$.getJSON(appUrl + '/module/firewall/get_firewall_data/' + serialNumber, function(data){
         
         if( data.length == 0 ){
             $('#firewall-msg').text(i18n.t('no_data'));
