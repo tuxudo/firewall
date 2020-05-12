@@ -34,21 +34,14 @@ class Firewall_controller extends Module_controller
     **/
     public function get_global_state()
     {
-        $obj = new View();
-        if (! $this->authorized()) {
-            $obj->view('json', array('msg' => 'Not authorized'));
-            return;
-        }
-  
-        $queryobj = new Firewall_model();
-        $sql = "SELECT COUNT(1) as total,
-                        COUNT(CASE WHEN `globalstate` = 0 THEN 1 END) AS 'off',
-                        COUNT(CASE WHEN `globalstate` = 1 THEN 1 END) AS 'on',
-                        COUNT(CASE WHEN `globalstate` = 2 THEN 1 END) AS 'limited'
-                        from firewall
-                        LEFT JOIN reportdata USING (serial_number)
-                        WHERE ".get_machine_group_filter('');       
-        $obj->view('json', array('msg' => current($queryobj->query($sql))));
+        jsonView(
+            Firewall_model::selectRaw("COUNT(CASE WHEN `globalstate` = '1' THEN 1 END) AS 'on'")
+            ->selectRaw("COUNT(CASE WHEN `globalstate` = '0' THEN 1 END) AS 'off'")
+            ->selectRaw("COUNT(CASE WHEN `globalstate` = '2' THEN 1 END) AS 'limited'")
+            ->filter()
+            ->first()
+            ->toLabelCount()
+        );
     }
     
     /**
@@ -59,20 +52,13 @@ class Firewall_controller extends Module_controller
     **/
     public function get_allowsignedenabled()
     {
-        $obj = new View();
-        if (! $this->authorized()) {
-            $obj->view('json', array('msg' => 'Not authorized'));
-            return;
-        }
-  
-        $queryobj = new Firewall_model();
-        $sql = "SELECT COUNT(1) as total,
-                        COUNT(CASE WHEN `allowsignedenabled` = 0 THEN 1 END) AS 'off',
-                        COUNT(CASE WHEN `allowsignedenabled` = 1 THEN 1 END) AS 'on'
-                        from firewall
-                        LEFT JOIN reportdata USING (serial_number)
-                        WHERE ".get_machine_group_filter('');       
-        $obj->view('json', array('msg' => current($queryobj->query($sql))));
+        jsonView(
+            Firewall_model::selectRaw("COUNT(CASE WHEN `allowsignedenabled` = '1' THEN 1 END) AS 'on'")
+                ->selectRaw("COUNT(CASE WHEN `allowsignedenabled` = '0' THEN 1 END) AS 'off'")
+                ->filter()
+                ->first()
+                ->toLabelCount()
+        );
     }
     
     /**
@@ -83,20 +69,13 @@ class Firewall_controller extends Module_controller
     **/
     public function get_stealthenabled()
     {
-        $obj = new View();
-        if (! $this->authorized()) {
-            $obj->view('json', array('msg' => 'Not authorized'));
-            return;
-        }
-  
-        $queryobj = new Firewall_model();
-        $sql = "SELECT COUNT(1) as total,
-                        COUNT(CASE WHEN `stealthenabled` = 0 THEN 1 END) AS 'off',
-                        COUNT(CASE WHEN `stealthenabled` = 1 THEN 1 END) AS 'on'
-                        from firewall
-                        LEFT JOIN reportdata USING (serial_number)
-                        WHERE ".get_machine_group_filter('');       
-        $obj->view('json', array('msg' => current($queryobj->query($sql))));
+        jsonView(
+            Firewall_model::selectRaw("COUNT(CASE WHEN `stealthenabled` = '1' THEN 1 END) AS 'on'")
+                ->selectRaw("COUNT(CASE WHEN `stealthenabled` = '0' THEN 1 END) AS 'off'")
+                ->filter()
+                ->first()
+                ->toLabelCount()
+        );
     }
     
     /**
@@ -107,41 +86,28 @@ class Firewall_controller extends Module_controller
     **/
     public function get_allowdownloadsignedenabled()
     {
-        $obj = new View();
-        if (! $this->authorized()) {
-            $obj->view('json', array('msg' => 'Not authorized'));
-            return;
-        }
-  
-        $queryobj = new Firewall_model();
-        $sql = "SELECT COUNT(1) as total,
-                        COUNT(CASE WHEN `allowdownloadsignedenabled` = 0 THEN 1 END) AS 'off',
-                        COUNT(CASE WHEN `allowdownloadsignedenabled` = 1 THEN 1 END) AS 'on'
-                        from firewall
-                        LEFT JOIN reportdata USING (serial_number)
-                        WHERE ".get_machine_group_filter('');       
-        $obj->view('json', array('msg' => current($queryobj->query($sql))));
+        jsonView(
+            Firewall_model::selectRaw("COUNT(CASE WHEN `allowdownloadsignedenabled` = '1' THEN 1 END) AS 'on'")
+                ->selectRaw("COUNT(CASE WHEN `allowdownloadsignedenabled` = '0' THEN 1 END) AS 'off'")
+                ->filter()
+                ->first()
+                ->toLabelCount()
+        );
     }
 
 	/**
      * Retrieve data in json format
      *
      **/
-    public function get_data($serial_number = '')
+    public function get_firewall_data($serial_number)
     {
-        $obj = new View();
-
-        if (! $this->authorized()) {
-            $obj->view('json', array('msg' => 'Not authorized'));
-            return;
-        }
-        
-        $sql = "SELECT globalstate, stealthenabled, allowsignedenabled, allowdownloadsignedenabled, loggingenabled, loggingoption, firewallunload, services, applications
-                    FROM firewall 
-                    WHERE serial_number = '$serial_number'";
-        
-        $queryobj = new firewall_model();
-        $firewall_tab = $queryobj->query($sql);
-        $obj->view('json', array('msg' => current(array('msg' => $firewall_tab)))); 
+        jsonView(
+            Firewall_model::select()
+                ->where('firewall.serial_number', $serial_number)
+                ->filter()
+                ->get()
+                ->toArray()
+        );
     }
+
 } // End class Firewall_controller
