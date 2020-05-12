@@ -102,7 +102,7 @@ class Firewall_controller extends Module_controller
     public function get_firewall_data($serial_number)
     {
         jsonView(
-            Firewall_model::select()
+            Firewall_model::selectRaw('globalstate, stealthenabled, allowsignedenabled, allowdownloadsignedenabled, loggingenabled, loggingoption, firewallunload, services, applications')
                 ->where('firewall.serial_number', $serial_number)
                 ->filter()
                 ->get()
