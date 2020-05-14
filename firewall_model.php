@@ -4,7 +4,7 @@ use munkireport\models\MRModel as Eloquent;
 
 class Firewall_model extends Eloquent
 {
-    protected $table = 'Firewall';
+    protected $table = 'firewall';
 
     protected $fillable = [
 		'serial_number',
