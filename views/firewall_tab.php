@@ -106,7 +106,7 @@ $(document).on('appReady', function(){
                             .append($('<tbody>')
                                 .append(rows))))
 
-                if (rows_services !== '' && rows_services !== null){
+                if (rows_services !== ''){
                     $('#firewall-tab')
                         .append($('<h4>')
                             .append($('<i>')
