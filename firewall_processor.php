@@ -20,6 +20,5 @@ class Firewall_processor extends Processor
 
         $model->fill($mylist);
         $model->save();    
-
 	}
 }
