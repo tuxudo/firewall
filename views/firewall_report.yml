@@ -1,0 +1,6 @@
+row1:
+  firewall_global_state:
+  firewall_allowsignedenabled:
+  firewall_allowdownloadsignedenabled:
+row2:
+  firewall_stealthenabled:

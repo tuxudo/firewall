@@ -1,0 +1,16 @@
+type: button
+widget_id: firewall_global_state-widget
+api_url: /module/firewall/get_global_state
+i18n_title: firewall.globalstate
+icon: fa-fire
+listing_link: /show/listing/firewall/firewall
+buttons:
+  - label: off
+    i18n_label: disabled
+    class: btn-danger 
+  - label: limited
+    i18n_label: firewall.block_all_listing
+    class: btn-warning
+  - label: on
+    i18n_label: enabled
+    class: btn-success

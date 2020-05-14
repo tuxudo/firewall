@@ -8,7 +8,7 @@ $(document).on('appReady', function(){
     // Set the tab badge to blank
     $('#firewall-cnt').html("");
     
-	$.getJSON(appUrl + '/module/firewall/get_data/' + serialNumber, function(data){
+	$.getJSON(appUrl + '/module/firewall/get_firewall_data/' + serialNumber, function(data){
         
         if( data.length == 0 ){
             $('#firewall-msg').text(i18n.t('no_data'));
@@ -26,7 +26,7 @@ $(document).on('appReady', function(){
                 for (var prop in d){
                     // Skip skipThese
                     if(skipThese.indexOf(prop) == -1){
-                        if (d[prop] == ''){
+                        if (d[prop] === '' || d[prop] === null){
                             // Do nothing for empty values to blank them
                             
                         } else if(prop == 'globalstate' && d[prop] == 2){
@@ -53,7 +53,7 @@ $(document).on('appReady', function(){
                             rows = rows + '<tr><th>'+i18n.t('firewall.'+prop)+'</th><td>'+i18n.t('disabled')+'</td></tr>';
                             
                         // Else if build out the applications table
-                        } else if(prop == "applications"){                            
+                        } else if(prop == "applications"){
                             var apps_data = JSON.parse(d['applications']);
                             rows_apps = '<tr><th>'+i18n.t('firewall.bundle_id')+'</th><th>'+i18n.t('firewall.globalstate')+'</th></tr>'
                             $.each(apps_data, function(i,d){
@@ -67,14 +67,14 @@ $(document).on('appReady', function(){
                                 } else {
                                     var app_state = d
                                 }
-                                
+
                                 // Generate rows from data
                                 rows_apps = rows_apps + '<tr><td>'+bundle_id+'</td><td>'+app_state+'</td></tr>';
                             })
                             rows_apps = rows_apps // Close applications table framework
 
                         // Else if build out the services table
-                        } else if(prop == "services"){                            
+                        } else if(prop == "services"){
                             var services_data = JSON.parse(d['services']);
                             rows_services = '<tr><th>'+i18n.t('firewall.service')+'</th><th>'+i18n.t('firewall.globalstate')+'</th></tr>'
                             $.each(services_data, function(i,d){
@@ -93,7 +93,7 @@ $(document).on('appReady', function(){
                                 rows_services = rows_services + '<tr><td>'+service+'</td><td>'+service_state+'</td></tr>';
                             })
                             rows_services = rows_services // Close services table framework
-                            
+
                         } else {
                             rows = rows + '<tr><th>'+i18n.t('firewall.'+prop)+'</th><td>'+d[prop]+'</td></tr>';
                         }
@@ -105,8 +105,7 @@ $(document).on('appReady', function(){
                             .addClass('table table-striped table-condensed')
                             .append($('<tbody>')
                                 .append(rows))))
-                
-                
+
                 if (rows_services !== ''){
                     $('#firewall-tab')
                         .append($('<h4>')

@@ -1,0 +1,31 @@
+i18n_title: firewall.reporttitle
+not_null_column: globalstate
+table:
+    -
+        column: machine.computer_name
+        i18n_header: listing.computername
+        formatter: clientDetail
+        tab_link: firewall-tab
+    -
+        column: reportdata.serial_number
+        i18n_header: serial
+    -
+        column: firewall.globalstate
+        i18n_header: firewall.globalstate
+        formatter: binaryEnabledDisabled
+    -
+        column: firewall.stealthenabled
+        i18n_header: firewall.stealthenabled
+        formatter: binaryEnabledDisabled
+    -
+        column: firewall.allowsignedenabled
+        i18n_header: firewall.allowsignedenabled
+        formatter: binaryYesNo
+    -
+        column: firewall.allowdownloadsignedenabled
+        i18n_header: firewall.allowdownloadsignedenabled
+        formatter: binaryYesNo
+    -
+        column: firewall.loggingenabled
+        i18n_header: firewall.loggingenabled
+        formatter: binaryEnabledDisabled
