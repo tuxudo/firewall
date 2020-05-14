@@ -109,5 +109,4 @@ class Firewall_controller extends Module_controller
                 ->toArray()
         );
     }
-
 } // End class Firewall_controller
