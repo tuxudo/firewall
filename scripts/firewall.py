@@ -1,4 +1,4 @@
-#!/usr/local/munkireport/munkireport-python2
+#!/usr/local/munkireport/munkireport-python3
 
 """
 Firewall for munkireport.
@@ -27,7 +27,10 @@ def get_firewall_info():
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (output, unused_error) = proc.communicate()
     try:
-        plist = plistlib.readPlistFromString(output)
+        try:
+            plist = plistlib.readPlistFromString(output)
+        except AttributeError as e:
+            plist = plistlib.loads(output)
         # system_profiler xml is an array
         firewall_dict = plist[0]
         items = firewall_dict['_items']
@@ -95,22 +98,6 @@ def merge_two_dicts(x, y):
 
 def main():
     """Main"""
-    # Skip manual check
-    if len(sys.argv) > 1:
-        if sys.argv[1] == 'manualcheck':
-            print 'Manual check: skipping'
-            exit(0)
-    
-    # Create cache dir if it does not exist
-    cachedir = '%s/cache' % os.path.dirname(os.path.realpath(__file__))
-    if not os.path.exists(cachedir):
-        os.makedirs(cachedir)
-        
-        
-    # Set the encoding
-    # The "ugly hack" :P 
-    reload(sys)  
-    sys.setdefaultencoding('utf8')
 
     # Get results
     result = dict()
@@ -118,6 +105,7 @@ def main():
     result = merge_two_dicts(flatten_firewall_info(info), get_alf_preferences())
     
     # Write firewall results to cache
+    cachedir = '%s/cache' % os.path.dirname(os.path.realpath(__file__))
     output_plist = os.path.join(cachedir, 'firewall.plist')
     FoundationPlist.writePlist(result, output_plist)
     #print FoundationPlist.writePlistToString(result)
